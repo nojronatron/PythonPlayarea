@@ -3,7 +3,7 @@
 # Title: Blackjack game
 # Description: The Black Jack game exercise. For 1 to 7 players and a single dealer.
 # Original: 30-July-2015
-# Updated: <date>, <updater>
+# Updated: 3-Jan-2016, JR
 # -------------------
 
 import cards
@@ -83,6 +83,9 @@ class BJ_Player(BJ_Hand):
     def bust(self):
         print(self.name, "loses.")
 
+    def lose(self):
+        print(self.name, "busts.")
+
     def win(self):
         print(self.name, "wins.")
 
@@ -132,46 +135,46 @@ class BJ_Game(object):
             if player.is_busted():
                 player.bust()
 
-
-def play(self):
-    # deal initial 2 cards to everyone
-    self.deck.deal(self.players + [self.dealer], per_hand = 2)
-    self.dealer.flip_first_card() # Hide the dealer's first card
-    for player in self.players:
-        print(player)
-    print(self.dealer)
-
-    # deal additional cards to players
-    for player in self.players:
-        self.__additional_cards(player)
-
-    self.dealer.flip_first_card() # Reveal dealer's first
-
-    if not self.still_playing:
-        # since all players have busted, just show the dealer's hand
+    def play(self):
+        # deal initial 2 cards to everyone
+        self.deck.deal(self.players + [self.dealer], per_hand=2)
+        self.dealer.flip_first_card()  # Hide the dealer's first card
+        for player in self.players:
+            print(player)
         print(self.dealer)
-    else:
-        # deal additional cards to dealer
-        print(self.dealer)
-        self.__additional_cards(self.dealer)
 
-        if self.dealer.is_busted():
-            # everyone still playing wins
-            for player in self.still_playing:
-                player.win()
+        # deal additional cards to players
+        for player in self.players:
+            self.__additional_cards(player)
+
+        self.dealer.flip_first_card()  # Reveal dealer's first
+
+        if not self.still_playing:
+            # since all players have busted, just show the dealer's hand
+            print(self.dealer)
         else:
-            # compare each player still playing to dealer
-            for player in self.still_playing:
-                if player.total > self.dealer.total:
+            # deal additional cards to dealer
+            print(self.dealer)
+            self.__additional_cards(self.dealer)
+
+            if self.dealer.is_busted():
+                # everyone still playing wins
+                for player in self.still_playing:
                     player.win()
-                elif player.total < self.dealer.total:
-                    player.lose()
-                else:
-                    player.push()
-    # remove everyone's cards
-    for player in self.players:
-        player.clear()
-    self.dealer.clear()
+            else:
+                # compare each player still playing to dealer
+                for player in self.still_playing:
+                    if player.total > self.dealer.total:
+                        player.win()
+                    elif player.total < self.dealer.total:
+                        player.lose()
+                    else:
+                        player.push()
+
+        # remove everyone's cards
+        for player in self.players:
+            player.clear()
+        self.dealer.clear()
 
 
 def main():

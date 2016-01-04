@@ -9,7 +9,7 @@
 
 class Player(object):
     """ A player for a game. """
-    def __init__(self, name, score = 0):
+    def __init__(self, name, score=0):
         self.name = name
         self.score = score
 
@@ -37,7 +37,7 @@ def ask_number(question, low, high):
     :return: An integer
     """
     response = None
-    while response not in range(low, high + 1):
+    while response not in range(low, high):
         response = int(input(question))
     return response
 

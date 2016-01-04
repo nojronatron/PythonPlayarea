@@ -3,7 +3,7 @@
 # Title: Cards Module
 # Description: Demonstrate developing Python Module
 # Original: 30-July-2015
-# Updated: <date>, <updater>
+# Updated: 3-Jan-2016, JR
 # -------------------
 
 
@@ -65,7 +65,7 @@ class Deck(Hand):
         import random
         random.shuffle(self.cards)
 
-    def deal(self, hands, per_hand = 1):
+    def deal(self, hands, per_hand=1):
         for rounds in range(per_hand):
             for hand in hands:
                 if self.cards:
