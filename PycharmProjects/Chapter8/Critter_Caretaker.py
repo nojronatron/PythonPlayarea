@@ -6,6 +6,7 @@
 #       Create classes to define objects; Write methods and create attributes for objects;
 #       Instantiate objects from classes; Restrict access to an object's attributes.
 # ChangeLog: Initial
+#            11-July-2015 Began working on Chp8 Challenges
 # -------------------------------------------------#
 
 
@@ -35,21 +36,43 @@ class Critter(object):
 
     def talk(self):
         print("I'm", self.name, "and I feel", self.mood, "now.\n")
+        # print("Hunger:", self.hunger, "; Boredom:", self.boredom)
         self.__pass_time()
 
-    def eat(self, food=4):
-        print("Brruppp. Thank you.")
+    def eat(self, food):
+        print("Brruppp. Thank you for the", food, "units of food!")
         self.hunger -= food
         if self.hunger < 0:
             self.hunger = 0
         self.__pass_time()
 
-    def play(self, fun=4):
-        print("Wheee!")
+    def play(self, fun):
+        print("Wheee!!! Thank you for the", fun, "minutes of playtime!")
         self.boredom -= fun
         if self.boredom < 0:
             self.boredom = 0
         self.__pass_time()
+
+
+def getamount(ofwhat):
+    """ Ask user how much food or how many minutes of playtime """
+    if ofwhat == "2":
+        howmuch = int(input("Feed your critter how many servings?"))
+        if howmuch <= 0:
+            print("That is too little food.")
+            howmuch = 0
+        elif howmuch >= 11:
+            print("That is too much food!")
+            howmuch = 10
+    elif ofwhat == "3":
+        howmuch = int(input("Play with your critter for how many minutes?"))
+        if howmuch <= 0:
+            print("That is not enough playtime.")
+            howmuch = 0
+        elif howmuch >= 11:
+            print("That is too much playtime!")
+            howmuch = 10
+    return howmuch
 
 
 def main():
@@ -58,8 +81,7 @@ def main():
 
     choice = None
     while choice != "0":
-        print \
-            ("""
+        print("""
             Critter Caretaker
 
             0 - Quit
@@ -80,11 +102,13 @@ def main():
 
         # feed your critter
         elif choice == "2":
-            crit.eat()
+            amount = getamount(choice)
+            crit.eat(amount)
 
         # play with your critter
         elif choice == "3":
-            crit.play()
+            amount = getamount(choice)
+            crit.play(amount)
 
         # some unknown choice
         else:

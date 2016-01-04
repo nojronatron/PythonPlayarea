@@ -1,7 +1,7 @@
 # -------------------------------------------------#
 # Title: Critter Caretaker Farm Program - Chpt 8 Challenge #4
 # Author = Jonathan Rumsey
-# Date: 12-July-2015
+# Date: 12-July-2015 thru 19-July-2015
 # Desc: Create a Critter_Caretaker program for a FARM of critters.
 #       Instantiate several Critter objects and keep track of them through a list.
 #       Mimic the Critter_Caretaker program but require the user take care of an entire farm of critters.
@@ -10,10 +10,12 @@
 #  ChangeLog: Initial
 # -------------------------------------------------#
 
+import random
+
 
 class Critter(object):
     """A virtual pet"""
-    def __init__(self, name, hunger=0, boredom=0):
+    def __init__(self, name, hunger, boredom):
         self.name = name
         self.hunger = hunger
         self.boredom = boredom
@@ -21,13 +23,6 @@ class Critter(object):
     def __pass_time(self):
         self.hunger += 1
         self.boredom += 1
-
-    def __str__(self):
-        magic_response = "Critter object\n"
-        magic_response += "name: " + self.name + "\n"
-        magic_response += "hunger: " + str(self.hunger) + "\n"
-        magic_response += "boredom: " + str(self.boredom) + "."
-        return magic_response
 
     @property
     def mood(self):
@@ -64,7 +59,6 @@ class Critter(object):
 
 def get_amount(of_what):
     """ Ask user how much food or how many minutes of playtime """
-    how_much = 0
     if of_what == "2":
         how_much = int(input("Feed your critter how many servings?"))
         if how_much <= 0:
@@ -84,58 +78,50 @@ def get_amount(of_what):
     return how_much
 
 
-def feed_one():
-    """
-    Feed just one critter. Ask user for critter name, then feed it.
-    :return:
-    """
-    # TODO: complete function to get critter name, then send info
-    return ""
+def all_critters_status(all_critters):
+    for critter in all_critters:
+        print(critter.name, "'s Hunger: ", critter.hunger, "; Mood: ", critter.mood, sep="")
 
 
-def play_with_one():
-    """
-    Play with just one critter. Ask user for critter name, then play with it.
-    :return:
-    """
-    # TODO: complete function to get critter name, then send info to appropriate object
-    # not implemented function
-    return ""
+def name_the_critter(which_one):
+    print("What do you want to name your", which_one, end="")
+    critter_name = (input(" critter? ").capitalize())
+    return critter_name
 
 
-def create_farm():
-    """
-    Create a farm of critters. For now just 4. Maybe later do something more interesting
-    :return:
-    """
-    # TODO: Think of other ways to generate and then display critters that is simple and portable
-    print("\nCreating farm of critters...")
-    critter1 = Critter(name="Critter1")
-    critter2 = Critter(name="Critter2")
-    critter3 = Critter(name="Critter3")
-    critter4 = Critter(name="Critter4")
-    farm_of_critters = [critter1, critter2, critter3, critter4]
-    print("\nHere are the critters:")
-    print(str(farm_of_critters))
+def pick_a_number():
+    return random.randrange(20)
+
+
+def select_one_or_all_critters(all_critters_param):
+    print("Which critter? ...or all critters? ")
+    counter = 1
+    for critter in all_critters_param:
+        print(counter, "-", critter.name)
+        counter += 1
+    one_or_all_param = (input("Enter name of the critter or 'all' for all of them: ")).strip().capitalize()
+    if one_or_all_param == "" or len(one_or_all_param) <= 0:
+        print("Invalid entry. Returning to menu.")
+    else:
+        return one_or_all_param
 
 
 def main():
-    crit_name = input("What do you want to name your critter?: ")
-    create_farm()
-
-    crit = Critter(crit_name)
+    critter_1 = Critter(name_the_critter("first"), pick_a_number(), pick_a_number())
+    critter_2 = Critter(name_the_critter("second"), pick_a_number(), pick_a_number())
+    critter_3 = Critter(name_the_critter("third"), pick_a_number(), pick_a_number())
+    critter_4 = Critter(name_the_critter("fourth"), pick_a_number(), pick_a_number())
+    all_critters = [critter_1, critter_2, critter_3, critter_4]
 
     choice = None
     while choice != "0":
-        # TODO: Rethink this menu to better re-use single-critter functions (why re-write single-critter functions?)
         print("""
             Critter Caretaker
+
             0 - Quit
-            1 - Listen to your critters
-            2 - Feed your critters
-            3 - Play with your critters
-            4 - Feed just one critter
-            5 - Play with just one critter
+            1 - Listen to your critter
+            2 - Feed your critter
+            3 - Play with your critter
             """)
         choice = input("Choice: ")
         print()
@@ -144,37 +130,49 @@ def main():
         if choice == "0":
             print("Good-bye.")
 
-        # listen to your critters
-        # TODO: Update to apply to all Critters in the farm
+        # listen to your critter
         elif choice == "1":
-            crit.talk()
+            one_or_all = select_one_or_all_critters(all_critters)
+            if one_or_all == "All":
+                for critter in all_critters:
+                    critter.talk()
+            else:
+                for critter in all_critters:
+                    if critter.name == one_or_all:
+                        critter.talk()
+                        break
 
-        # feed your critters
-        # TODO: Update to apply to all critters in the farm
+        # feed your critter
         elif choice == "2":
             amount = get_amount(choice)
-            crit.eat(amount)
+            one_or_all = select_one_or_all_critters(all_critters)
+            if one_or_all == "All":
+                for critter in all_critters:
+                    critter.eat(amount)
+            else:
+                for critter in all_critters:
+                    if critter.name == one_or_all:
+                        critter.eat(amount)
+                        break
 
-        # play with your critters
-        # TODO: Update this to apply to all critters in the farm
+        # play with your critter
         elif choice == "3":
             amount = get_amount(choice)
-            crit.play(amount)
+            one_or_all = select_one_or_all_critters(all_critters)
+            if one_or_all == "All":
+                for critter in all_critters:
+                    critter.play(amount)
+            else:
+                for critter in all_critters:
+                    if critter.name == one_or_all:
+                        critter.play(amount)
+                        break
 
-        # feed a single critter
-        elif choice == "4":
-            amount = get_amount(choice)
-            crit.feed_one(amount)
-
-        # play with a single critter
+        # Test Area Option 5
         elif choice == "5":
-            amount = get_amount(choice)
-            crit.play_with_one(amount)
-
-        # hidden magic status menu item
-        # TODO: Update this to apply to all critters in the farm
-        elif choice == "6":
-            print(crit.__str__())
+            print("The total number of critters is: ", len(all_critters))
+            all_critters_status(all_critters)
+            input("Press the Enter key to continue...")
 
         # some unknown choice
         else:
