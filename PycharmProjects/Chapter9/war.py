@@ -3,12 +3,13 @@
 # Title: Challenge #2 - Create a one-card version of the game 'war'
 # Description: Each player gets a single card and the player with the highest card wins. A work in progress.
 # Original: 5-Jan-2016
-# Updated: 6-Jan-2016; Attempting to get game mechanics working -jar
+# Updated: 14-Feb-2016 - Mechanics working. Need to work on the TODO items
 # -------------------
 
 
 import games
 import cards
+from operator import attrgetter
 
 
 class War_Card(cards.Card):
@@ -114,13 +115,19 @@ class War_Game(object):
             print()
 
         # compare card values to determine the winner
-        print("Sorted descending:", sorted(self.players, key=self.players.__str__, reverse=True) )
-        ranked_list = []
-        ranked_list = sorted(self.players, key=self.players.__str__, reverse=True)
-        print("Ranked List:", ranked_list)
+        self.players.sort (key=lambda player: player.total, reverse=True)
         self.players[0].win()
 
+        # TODO: Keep score during longevity of the game
 
+        # Clear the player's hands
+        for player in self.players:
+            player.clear()
+
+        # TODO: Check for and handle pending empty deck situation
+        
+
+            
 def main():
     print("\t\tWelcome to the Game of War!\n")
 
