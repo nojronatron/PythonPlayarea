@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29025.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "DividingPoint", "DividingPoint\DividingPoint.pyproj", "{5E5878D8-3530-4357-B2B3-DE881626C45D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5E5878D8-3530-4357-B2B3-DE881626C45D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E5878D8-3530-4357-B2B3-DE881626C45D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2DAC58CB-E471-42A5-9ACB-5C05BFEC8EAB}
+	EndGlobalSection
+EndGlobal
