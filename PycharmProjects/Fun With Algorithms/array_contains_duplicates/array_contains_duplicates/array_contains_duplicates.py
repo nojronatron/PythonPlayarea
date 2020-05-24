@@ -47,3 +47,12 @@ userResponse = input("\n\nDo you want to see the array (y/n)? ")
 if ("y" in userResponse):
     print("\n", myArr)
 print()
+
+result = ContainsDuplicates(myArr)
+
+if (result):
+    print("\nThe array contains duplicates!")
+else:
+    print("\nThe array does NOT contain duplicates.")
+
+print()
